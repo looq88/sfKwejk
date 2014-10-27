@@ -1,6 +1,10 @@
-kwejk_layout:
-    resource: "@KwejkLayoutBundle/Resources/config/routing.yml"
-    prefix:   /
+KwejkAdminBundle_admin_kwejk_admin_bundle_mem:
+    resource: "@KwejkAdminBundle/Controller/Mem/"
+    type:     admingenerator
+    prefix:   /admin/mem
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
 kwejk_mems:
     resource: "@KwejkMemsBundle/Resources/config/routing.yml"
@@ -13,4 +17,6 @@ kwejk_user:
 kwejk_admin:
     resource: "@KwejkAdminBundle/Resources/config/routing.yml"
     prefix:   /
+    
+    
 

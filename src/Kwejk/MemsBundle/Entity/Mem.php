@@ -3,12 +3,17 @@
 namespace Kwejk\MemsBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Mems
  *
  * @ORM\Table(name="mem")
  * @ORM\Entity
+ * @Vich\Uploadable
  */
 class Mem
 {
@@ -47,7 +52,12 @@ class Mem
      */
     private $raitings;
     
-    
+    /**
+     * @Vich\UploadableField(mapping="mems_image", fileNameProperty="imageName")
+     * 
+     * @var File $imageFile 
+     */
+    private $imageFile;
     
     /**
      * @var string
@@ -57,12 +67,13 @@ class Mem
     private $title;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="slug", type="string", length=255)
+     * 
+     * @Gedmo\Slug(fields={"title"})
+     * 
+     * @ORM\Column(name="slug", length=255, unique=true)
      */
     private $slug;
-
+    
     /**
      * @var string
      *
@@ -75,7 +86,7 @@ class Mem
      *
      * @ORM\Column(name="is_accepted", type="string", length=255)
      */
-    private $isAccepted;
+    private $isAccepted = false;
 
 
     /**
@@ -156,12 +167,32 @@ class Mem
     {
         return $this->slug;
     }
-
+    
+    /**
+     * Set imageFile
+     *
+     * @param File $imageFile
+     */
+    public function setImageFile(File $imageFile)
+    {
+        $this->imageFile = $imageFile;
+    }
+    
+    /**
+     * Get imageFile
+     * 
+     * @return File
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+    
     /**
      * Set imageName
      *
      * @param string $imageName
-     * @return Mems
+     * @return MemsFile
      */
     public function setImageName($imageName)
     {
@@ -201,5 +232,103 @@ class Mem
     public function getIsAccepted()
     {
         return $this->isAccepted;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime('now');
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->raitings = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param \Kwejk\UserBundle\Entity\User $createdBy
+     * @return Mem
+     */
+    public function setCreatedBy(\Kwejk\UserBundle\Entity\User $createdBy = null)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return \Kwejk\UserBundle\Entity\User 
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \Kwejk\MemsBundle\Entity\Comment $comments
+     * @return Mem
+     */
+    public function addComment(\Kwejk\MemsBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \Kwejk\MemsBundle\Entity\Comment $comments
+     */
+    public function removeComment(\Kwejk\MemsBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Add raitings
+     *
+     * @param \Kwejk\MemsBundle\Entity\Rating $raitings
+     * @return Mem
+     */
+    public function addRaiting(\Kwejk\MemsBundle\Entity\Rating $raitings)
+    {
+        $this->raitings[] = $raitings;
+
+        return $this;
+    }
+
+    /**
+     * Remove raitings
+     *
+     * @param \Kwejk\MemsBundle\Entity\Rating $raitings
+     */
+    public function removeRaiting(\Kwejk\MemsBundle\Entity\Rating $raitings)
+    {
+        $this->raitings->removeElement($raitings);
+    }
+
+    /**
+     * Get raitings
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRaitings()
+    {
+        return $this->raitings;
     }
 }

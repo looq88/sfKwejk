@@ -70,7 +70,15 @@ class Comment
      */
     private $host;
 
-
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->host = 'localhost';
+        $this->ip = '127.0.0.1';
+        $this->userAgent = "mozila";
+        
+    }
+    
     /**
      * Get id
      *
@@ -194,5 +202,51 @@ class Comment
     public function getHost()
     {
         return $this->host;
+    }
+
+    /**
+     * Set createdBy
+     *
+     * @param \Kwejk\UserBundle\Entity\User $createdBy
+     * @return Comment
+     */
+    public function setCreatedBy(\Kwejk\UserBundle\Entity\User $createdBy = null)
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * Get createdBy
+     *
+     * @return \Kwejk\UserBundle\Entity\User 
+     */
+    public function getCreatedBy()
+    {
+        return $this->createdBy;
+    }
+
+    /**
+     * Set mem
+     *
+     * @param \Kwejk\MemsBundle\Entity\Mem $mem
+     * @return Comment
+     */
+    public function setMem(\Kwejk\MemsBundle\Entity\Mem $mem = null)
+    {
+        $this->mem = $mem;
+
+        return $this;
+    }
+
+    /**
+     * Get mem
+     *
+     * @return \Kwejk\MemsBundle\Entity\Mem 
+     */
+    public function getMem()
+    {
+        return $this->mem;
     }
 }
