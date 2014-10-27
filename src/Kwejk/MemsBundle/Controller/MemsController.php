@@ -18,7 +18,7 @@ class MemsController extends Controller
         $mems = $this->getDoctrine()
                 ->getRepository('KwejkMemsBundle:Mem')
                 ->findBy(
-                    ['isAccepted' => false],
+                    ['isAccepted' => true],
                     ['createdAt' => 'desc']
                     
                 );
@@ -31,6 +31,28 @@ class MemsController extends Controller
         );
         
         return $this->render('KwejkMemsBundle:Mems:list.html.twig', array(
+                'pages' => $pages,
+            ));    
+    }
+    
+    public function waitingAction($page)
+    {
+        $mems = $this->getDoctrine()
+                ->getRepository('KwejkMemsBundle:Mem')
+                ->findBy(
+                    ['isAccepted' => false],
+                    ['createdAt' => 'desc']
+                    
+                );
+        $paginator = $this->get('knp_paginator');
+        $pages = $paginator->paginate(
+                $mems,
+                $page,
+                5
+                
+        );
+        
+        return $this->render('KwejkMemsBundle:Mems:waiting.html.twig', array(
                 'pages' => $pages,
             ));    
     }

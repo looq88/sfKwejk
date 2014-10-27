@@ -10,6 +10,11 @@ kwejk_mems_list:
     path:     /{page}
     defaults: { _controller: KwejkMemsBundle:Mems:list, page: 1 }
     requirements: { page: \d+ }
+    
+kwejk_mems_waiting:
+    path:     /waiting/{page}
+    defaults: { _controller: KwejkMemsBundle:Mems:waiting, page: 1 }
+    requirements: { page: \d+ }
 
 kwejk_mems_show:
     path:     /{slug}

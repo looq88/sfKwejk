@@ -16,7 +16,7 @@ class Builder extends ContainerAware
             'route' => 'kwejk_mems_list'
         ]);
         $menu->addChild('Poczekalnia', [
-            'uri' => '#'
+            'route' => 'kwejk_mems_waiting'
         ]);
         $menu->addChild('Top', [
             'uri' => '#'
