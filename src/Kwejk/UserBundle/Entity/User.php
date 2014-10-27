@@ -163,4 +163,13 @@ class User extends BaseUser
     {
         return $this->raitings;
     }
+    
+    public function getExpiresAt()
+    {
+        return $this->expiresAt;
+    }
+    public function getCredentialsExpireAt()
+    {
+        return $this->credentialsExpireAt;
+    }
 }

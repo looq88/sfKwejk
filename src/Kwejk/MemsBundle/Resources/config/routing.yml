@@ -15,7 +15,6 @@ kwejk_mems_show:
     path:     /{slug}
     defaults: { _controller: KwejkMemsBundle:Mems:show }
 
-
 kwejk_mems_comment_new:
     path:     /comment/new
     defaults: { _controller: KwejkMemsBundle:Comment:new }

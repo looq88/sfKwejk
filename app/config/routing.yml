@@ -1,3 +1,13 @@
+KwejkAdminBundle_admin_kwejk_admin_bundle_user:
+    resource: "@KwejkAdminBundle/Controller/User/"
+    type:     admingenerator
+    prefix:   /admin/user
+
+KwejkAdminBundle_admin_kwejk_admin_bundle_comment:
+    resource: "@KwejkAdminBundle/Controller/Comment/"
+    type:     admingenerator
+    prefix:   /admin/comment
+
 KwejkAdminBundle_admin_kwejk_admin_bundle_mem:
     resource: "@KwejkAdminBundle/Controller/Mem/"
     type:     admingenerator
