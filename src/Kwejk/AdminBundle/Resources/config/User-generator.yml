@@ -5,7 +5,7 @@ params:
     concurrency_lock: ~
     bundle_name: AdminBundle
     pk_requirement: ~
-    fields: ~
+    fields: [ username, email ]
     object_actions:
         delete: ~
     batch_actions:
@@ -14,7 +14,7 @@ builders:
     list:
         params:
             title: Lista Użytkowników
-            display: ~
+            display: [ username, email ]
             actions:
                 new: ~
             object_actions:
@@ -30,21 +30,21 @@ builders:
     new:
         params:
             title: New object for AdminBundle
-            display: ~
+            display: [ username, email ]
             actions:
                 save: ~
                 list: ~
     edit:
         params:
             title: "You're editing the object \"%object%\"|{ %object%: User.title }|"
-            display: ~
+            display: [ username, email ]
             actions:
                 save: ~
                 list: ~
     show:
         params:
             title: "You're viewing the object \"%object%\"|{ %object%: User.title }|"
-            display: ~
+            display: [ username, email ]
             actions:
                 list: ~
                 new: ~

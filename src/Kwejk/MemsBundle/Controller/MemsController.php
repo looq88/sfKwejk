@@ -2,11 +2,13 @@
 
 namespace Kwejk\MemsBundle\Controller;
 
-use Kwejk\MemsBundle\Form\CommentType;
+//use Kwejk\MemsBundle\Form\CommentType;
 use Kwejk\MemsBundle\Form\AddCommentType;
+use Kwejk\MemsBundle\Form\AddRatingType;
 use Kwejk\MemsBundle\Entity\Comment;
 use Kwejk\MemsBundle\Form\AddMemType;
 use Kwejk\MemsBundle\Entity\Mem;
+use Kwejk\MemsBundle\Entity\Rating;
 use Symfony\Component\HttpFoundation\Request;
 use Kwejk\CoreBundle\Controller\Controller;
 
@@ -71,9 +73,12 @@ class MemsController extends Controller
         if (!$mem) {
             throw $this->createNotFoundException('Mem nie istnieje');
         }
-        
+                
         $comment = new Comment();
-        $form = $this->createForm(new AddCommentType(), $comment);
+        $formComment = $this->createForm(new AddCommentType(), $comment);
+        
+        $rating = new Rating();
+        $formRating = $this->createForm(new AddRatingType(), $rating);
         
         if ($user && $user->hasRole('ROLE_USER')) {
 
@@ -82,10 +87,10 @@ class MemsController extends Controller
             // TODO: homework
             // $comment->setHost($host);
             // ...
+           
+            $formComment->handleRequest($request);
             
-            $form->handleRequest($request);
-            
-            if ($form->isValid()) {
+            if ($formComment->isValid()) {
             
                 // save data
                 $this->persist($comment);
@@ -96,10 +101,27 @@ class MemsController extends Controller
                     'slug' => $mem->getSlug())
                 ));
             }
+            
+            $rating->setMem($mem);
+            $rating->setCreatedBy($user);
+            $formRating->handleRequest($request);
+            
+            if ($formRating->isValid()) {
+            
+                // save data
+                $this->persist($rating);
+            
+                $this->addFlash('notice', "Ocena został pomyślnie zapisany.");
+            
+                return $this->redirect($this->generateUrl('kwejk_mems_show', array(
+                    'slug' => $mem->getSlug())
+                ));
+            }
         }
         return $this->render('KwejkMemsBundle:Mems:show.html.twig', array(
             'mem'   => $mem,
-            'form'  => $form->createView()
+            'formComment'  => $formComment->createView(),
+            'formRating'  => $formRating->createView(),    
         ));    
     }
             

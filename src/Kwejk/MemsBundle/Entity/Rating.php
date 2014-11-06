@@ -48,7 +48,12 @@ class Rating
      */
     private $rating;
 
-
+    public function __construct()
+    {
+        $this->createAt = new \DateTime();
+                
+    }
+    
     /**
      * Get id
      *

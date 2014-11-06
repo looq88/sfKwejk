@@ -21,6 +21,7 @@ class AddCommentType extends AbstractType
                 
             ))
             ->add('save', 'submit',array(
+                'attr' => array('class' => 'btn pull-right'),
                 'label' => 'Dodaj Komentarz'
             ))
         ;
